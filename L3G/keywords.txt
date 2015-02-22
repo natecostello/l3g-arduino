@@ -3,6 +3,7 @@ L3G	KEYWORD1
 init	KEYWORD2
 getDeviceType	KEYWORD2
 enableDefault	KEYWORD2
+enableDefaultHighPass KEYWORD2
 writeReg	KEYWORD2
 readReg	KEYWORD2
 read	KEYWORD2
