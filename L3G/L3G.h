@@ -78,7 +78,7 @@ class L3G
     deviceType getDeviceType(void) { return _device; }
 
     void enableDefault(void);
-
+    void enableDefaultHighPass(void);
     void writeReg(byte reg, byte value);
     byte readReg(byte reg);
 

@@ -150,6 +150,39 @@ void L3G::enableDefault(void)
   writeReg(CTRL_REG1, 0x6F);
 }
 
+/*
+Enables the L3G's gyro. Also:
+- Sets gyro full scale (gain) to default power-on value of +/- 250 dps
+  (specified as +/- 245 dps for L3GD20H).
+- Selects 200 Hz ODR (output data rate). (Exact rate is specified as 189.4 Hz
+  for L3GD20H and 190 Hz for L3GD20.)
+- Enables the high pass filter to remove DC offset error
+Note that this function will also reset other settings controlled by
+the registers it writes to.
+*/
+void L3G::enableDefaultHighPass(void)
+{
+
+  if (_device == device_D20H)
+  {
+    // 0x00 = 0b00000000
+    // Low_ODR = 0 (low speed ODR disabled)
+    writeReg(LOW_ODR, 0x00);
+  }
+  
+  // 0x09 = 0b00001001
+  // HPCF3-0 = 1001 (lowest possible high pass filter cut off)
+  writeReg(CTRL_REG2, 0x09);
+
+  // 0x00 = 0b00000000
+  // FS = 00 (+/- 250 dps full scale)
+  writeReg(CTRL_REG4, 0x00);
+  
+  // 0x6F = 0b01101111
+  // DR = 01 (200 Hz ODR); BW = 10 (50 Hz bandwidth); PD = 1 (normal mode); Zen = Yen = Xen = 1 (all axes enabled)
+  writeReg(CTRL_REG1, 0x6F);
+}
+
 // Writes a gyro register
 void L3G::writeReg(byte reg, byte value)
 {
