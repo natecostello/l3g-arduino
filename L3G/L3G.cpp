@@ -174,6 +174,11 @@ void L3G::enableDefaultHighPass(void)
   // HPCF3-0 = 1001 (lowest possible high pass filter cut off)
   writeReg(CTRL_REG2, 0x09);
 
+  // 0x12 = 0b00010010
+  // Hpen = 1 (High Pass filter Enabled)
+  // Out_sel1 = 1 (Data in DataReg and FIFO are high pass and low pass filterd by LPF2)
+  writeReg(CTRL_REG5, 0x12);
+
   // 0x00 = 0b00000000
   // FS = 00 (+/- 250 dps full scale)
   writeReg(CTRL_REG4, 0x00);
